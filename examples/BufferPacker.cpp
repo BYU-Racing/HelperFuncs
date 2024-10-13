@@ -21,13 +21,13 @@ void defaultPackingExample()
     constexpr int16_t packValue3 = -5;
 
     // Size of data to store
-    constexpr size_t BUFFER_SIZE = sizeof(uint16_t) + sizeof(float) + sizeof(int16_t); // 7 on most architectures
+    constexpr size_t BUFFER_SIZE = sizeof(uint16_t) + sizeof(float) + sizeof(int16_t); // 8 on most architectures
 
     // Buffer to copy results into
     uint8_t packBuffer[BUFFER_SIZE] {};
 
     // Packer with default initialization (PACK mode, size 8)
-    auto packer = BufferPacker();
+    BufferPacker packer;
 
     // Packing operations
     packer.pack(packValue1);
@@ -38,7 +38,7 @@ void defaultPackingExample()
     packer.deepCopyTo(packBuffer);
 
     // Unpacker with default initialization (UNPACK mode, size 8)
-    auto unpacker = BufferPacker(packBuffer);
+    BufferPacker unpacker(packBuffer);
 
     // Unpacking operations
     const auto unpackValue1 = unpacker.unpack<uint16_t>();
@@ -59,13 +59,13 @@ void customPackingExample()
     constexpr int8_t packValue3 = -5;
 
     // Size of data to store
-    constexpr size_t BUFFER_SIZE = sizeof(int64_t) + sizeof(float) + sizeof(double); // 17 on most architectures
+    constexpr size_t BUFFER_SIZE = sizeof(int64_t) + sizeof(float) + sizeof(int8_t); // 13 on most architectures
 
     // Buffer to copy results into
     uint8_t packBuffer[BUFFER_SIZE] {};
 
     // Packer with non-default initialization (PACK mode, size 17)
-    auto packer = BufferPacker<BUFFER_SIZE>();
+    BufferPacker<BUFFER_SIZE> packer;
 
     // Packing operations
     packer.pack(packValue1);
@@ -76,7 +76,7 @@ void customPackingExample()
     packer.deepCopyTo(packBuffer);
 
     // Unpacker with default initialization (UNPACK mode, size 17)
-    auto unpacker = BufferPacker<BUFFER_SIZE>(packBuffer);
+    BufferPacker<BUFFER_SIZE> unpacker(packBuffer);
 
     // Unpacking operations
     const auto unpackValue1 = unpacker.unpack<int64_t>();
@@ -109,7 +109,7 @@ void customPlainOldDataExample()
     uint8_t packBuffer[BUFFER_SIZE] {};
 
     // Packer with non-default initialization (PACK mode, size 12)
-    auto packer = BufferPacker<BUFFER_SIZE>();
+    BufferPacker<BUFFER_SIZE> packer;
 
     // Packing operation
     packer.pack(packValue1);
@@ -118,7 +118,7 @@ void customPlainOldDataExample()
     packer.deepCopyTo(packBuffer);
 
     // Unpacker with default initialization (UNPACK mode, size 8)
-    auto unpacker = BufferPacker<BUFFER_SIZE>(packBuffer);
+    BufferPacker<BUFFER_SIZE> unpacker(packBuffer);
 
     // Unpacking operation
     const auto unpackValue1 = unpacker.unpack<POD>();
@@ -140,7 +140,7 @@ void heapOwnershipExample()
     constexpr uint8_t packValueCheck[4] = {packValue1, packValue2, packValue3, packValue4};
 
     // Packer with default initialization (PACK mode, size 8)
-    auto packer = BufferPacker();
+    BufferPacker packer;
 
     // Packing operations
     packer.pack(packValue1);
@@ -172,13 +172,13 @@ void resetValuesExample()
     int16_t packValue3 = -5;
 
     // Size of data to store
-    constexpr size_t BUFFER_SIZE = sizeof(uint16_t) + sizeof(float) + sizeof(int16_t); // 7 on most architectures
+    constexpr size_t BUFFER_SIZE = sizeof(uint16_t) + sizeof(float) + sizeof(int16_t); // 8 on most architectures
 
     // Buffer to copy results into
     uint8_t packBuffer[BUFFER_SIZE] {};
 
     // Packer with default initialization (PACK mode, size 8)
-    auto packer = BufferPacker();
+    BufferPacker packer;
 
     // Packing operations
     packer.pack(packValue1);
@@ -202,7 +202,7 @@ void resetValuesExample()
     packer.deepCopyTo(packBuffer);
 
     // Unpacker with default initialization (UNPACK mode, size 8)
-    auto unpacker = BufferPacker(packBuffer);
+    BufferPacker unpacker(packBuffer);
 
     // Unpacking operations
     const auto unpackValue1 = unpacker.unpack<uint16_t>();
@@ -221,7 +221,7 @@ void resetBufferExample()
     uint8_t resetBuffer[3] = {10, 5, 10};
 
     // unpacker with default initialization
-    auto unpacker = BufferPacker(resetBuffer);
+    BufferPacker unpacker(resetBuffer);
 
     constexpr uint8_t newValue1 = 9;
     constexpr uint8_t newValue2 = 4;
@@ -249,10 +249,11 @@ void resetBufferExample()
 void bufferProtectionExample()
 {
     // These are all BAD examples - don't do these and you'll be fine!
-    // Use if(BufferPacker) or static_cast<bool>(BufferPacker) to check if there was a failure on an operation
+    // Use if(BufferPacker), static_cast<bool>(BufferPacker), or BufferPacker.hasFailed()
+    // to check if there was a failure during a previous operation.
 
     uint8_t largeBuffer[50] = {};
-    auto tooSmallPacker = BufferPacker<1>(largeBuffer);
+    BufferPacker<1> tooSmallPacker(largeBuffer);
     if (tooSmallPacker)
     {
         Serial.println("Buffer Packer Should've Failed on Construction Overflow - FAILED");
@@ -275,7 +276,7 @@ void bufferProtectionExample()
     }
 
     uint8_t tooSmallBuffer[1] = {};
-    auto bigPacker = BufferPacker<50>();
+    BufferPacker<50> bigPacker;
     bigPacker.deepCopyTo(tooSmallBuffer);
     if (bigPacker)
     {
@@ -286,7 +287,7 @@ void bufferProtectionExample()
     }
 
     uint8_t smallBuffer[1] = {1};
-    auto smallPacker = BufferPacker<1>(smallBuffer);
+    BufferPacker<1> smallPacker(smallBuffer);
     smallPacker.unpack<int64_t>();
     if (smallPacker)
     {
