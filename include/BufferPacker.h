@@ -29,8 +29,7 @@
  * </code>
  * @tparam SIZE The size of the internal, stack-allocated, fixed-size bytes buffer; defaults to 8.
  */
-template <size_t SIZE = 8>
-class BufferPacker
+template <size_t SIZE = 8> class BufferPacker
 {
 public:
     /**
@@ -46,8 +45,24 @@ public:
      * is larger than the size of the internal buffer. Otherwise, the BufferPacker is put into UNPACK mode and his the
      * data in the src buffer copied to the internal buffer.
      */
-    template <size_t SRC_SIZE>
-    explicit BufferPacker(uint8_t (&src)[SRC_SIZE]) : m_DataSize(SRC_SIZE), m_Offset(0)
+    explicit BufferPacker(const uint8_t* src, const size_t srcSize) : m_DataSize(srcSize), m_Offset(0)
+    {
+        if (srcSize > SIZE)
+        {
+            m_Mode = FAILURE;
+        } else
+        {
+            m_Mode = UNPACK;
+            memcpy(m_Buffer, src, srcSize);
+        }
+    }
+
+    /**
+     * A BufferPacker constructed with a source buffer is put instantly into FAILURE mode if the size of the source buffer
+     * is larger than the size of the internal buffer. Otherwise, the BufferPacker is put into UNPACK mode and his the
+     * data in the src buffer copied to the internal buffer.
+     */
+    template <size_t SRC_SIZE> explicit BufferPacker(uint8_t (&src)[SRC_SIZE]) : m_DataSize(SRC_SIZE), m_Offset(0)
     {
         if (SRC_SIZE > SIZE)
         {
@@ -84,8 +99,7 @@ public:
      * @tparam T any type that can be copied safely with c-style memcpy
      * @param value the object to copy into the buffer
      */
-    template <typename T>
-    void pack(T value)
+    template <typename T> void pack(T value)
     {
         if (m_Mode != PACK)
         {
@@ -116,8 +130,7 @@ public:
      * @tparam T any type that can by copied safely with c-style memcpy
      * @return The value unpacked from the buffer; could be uninitialized if a failure occured
      */
-    template <typename T>
-    T unpack()
+    template <typename T> T unpack()
     {
         T value{};
         if (m_Mode != UNPACK)
@@ -147,8 +160,7 @@ public:
      *
      * @tparam T any type
      */
-    template <typename T>
-    void skip()
+    template <typename T> void skip()
     {
         if (m_Mode != UNPACK)
         {
@@ -176,8 +188,7 @@ public:
      * @tparam T any type that can by copied safely with c-style memcpy
      * @return The value unpacked from the buffer; could be uninitialized if a failure occured
      */
-    template <typename T>
-    T seek()
+    template <typename T> T seek()
     {
         T value{};
         if (m_Mode != UNPACK)
@@ -204,8 +215,7 @@ public:
      * @tparam DEST_SIZE the size of a fixed-size buffer
      * @param dest the external buffer to copy the internal buffer's data to
      */
-    template <size_t DEST_SIZE>
-    void deepCopyTo(uint8_t (&dest)[DEST_SIZE])
+    template <size_t DEST_SIZE> void deepCopyTo(uint8_t (&dest)[DEST_SIZE])
     {
         if (m_Mode == FAILURE)
         {
@@ -248,8 +258,7 @@ public:
      * This method will instantly enter failure mode the size of the src buffer is larger than the size of the internal
      * buffer.
      */
-    template <size_t SRC_SIZE>
-    void reset(uint8_t (&src)[SRC_SIZE])
+    template <size_t SRC_SIZE> void reset(uint8_t (&src)[SRC_SIZE])
     {
         if (SRC_SIZE > SIZE)
         {
