@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "./BufferPacker.ino"
+#include "./BufferPacker.cpp"
 
 void setup() {
     Serial.begin(115200);
