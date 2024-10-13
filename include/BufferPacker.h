@@ -88,6 +88,12 @@ public:
         return m_Mode != FAILURE;
     }
 
+    /** Thisreturns false if a BufferPacker has "failed", true otherwise. */
+    [[nodiscard]] bool hasFailed() const
+    {
+        return m_Mode != FAILURE;
+    }
+
     /**
      * <b>Pack any type of value into the internal bytes buffer.</b>
      *
