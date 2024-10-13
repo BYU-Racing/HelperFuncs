@@ -1,6 +1,8 @@
 #ifndef RESERVED_H
 #define RESERVED_H
 
+#include <cstdint>
+
 /** CAN Message IDs that are reserved */
 enum ReservedIDs : uint32_t
 {
