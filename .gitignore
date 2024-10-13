@@ -1,0 +1,5 @@
+.pio
+.idea
+.vscode
+**/[Mm]ain.cpp
+!examples/**/main.cpp

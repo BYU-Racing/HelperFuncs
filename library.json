@@ -1,0 +1,29 @@
+{
+  "name": "Utils",
+  "version": "1.0.0",
+  "description": "A library containing utility classes and functions",
+  "keywords": "BYU-racing, Utils",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/BYU-Racing/Utils"
+  },
+  "authors":
+  [
+    {
+      "name": "Coleman Hardy",
+      "maintainer": true
+    },
+    {
+      "name": "Braden Toone",
+      "email": "braden@toonetown.com",
+      "maintainer": true
+    }
+  ],
+  "dependencies": [
+  ],
+  "frameworks": "arduino",
+  "platforms": [
+    "teensy"
+  ]
+}
