@@ -62,7 +62,7 @@ public:
      * is larger than the size of the internal buffer. Otherwise, the BufferPacker is put into UNPACK mode and his the
      * data in the src buffer copied to the internal buffer.
      */
-    template <size_t SRC_SIZE> explicit BufferPacker(uint8_t (&src)[SRC_SIZE]) : m_DataSize(SRC_SIZE), m_Offset(0)
+    template <size_t SRC_SIZE> explicit BufferPacker(const uint8_t (&src)[SRC_SIZE]) : m_DataSize(SRC_SIZE), m_Offset(0)
     {
         if (SRC_SIZE > SIZE)
         {
