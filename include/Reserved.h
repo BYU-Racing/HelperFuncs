@@ -9,7 +9,7 @@ enum class ReservedIDs : uint32_t
     // Custom Sensor Messages
 
     StartSwitch, Throttle1Position, Throttle2Position, BrakePressure, RVC, TireRPM, TireTemperature, BMSPercentage,
-    BMSTemperature,
+    BMSTemperature, SteeringWheelAngle,
     // Motor Messages
 
     Temperatures1=0x0A0, Temperatures2, Temperatures3, AnalogInputVoltages, DigitalInputStatus, MotorPositionInfo,
