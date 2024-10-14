@@ -261,10 +261,10 @@ public:
     /**
      * <b>Reset the internal buffer with a new src and enter 'UNPACK' Mode</b>
      *
-     * This method will instantly enter failure mode the size of the src buffer is larger than the size of the internal
-     * buffer.
+     * This method will instantly enter failure mode if
+     * the size of the src buffer is larger than the size of the internal buffer.
      */
-    template <size_t SRC_SIZE> void reset(uint8_t (&src)[SRC_SIZE])
+    template <size_t SRC_SIZE> void reset(const uint8_t (&src)[SRC_SIZE])
     {
         if (SRC_SIZE > SIZE)
         {
