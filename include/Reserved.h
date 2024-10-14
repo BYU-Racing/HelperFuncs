@@ -20,7 +20,7 @@ enum class ReservedIDs : uint32_t
     ControlCommand=0x0C0, ParameterCommand, ParameterResponse,
     // Health Check Commands/Response Messages
 
-    HealthCheck=200, DC1, DC2, DC3,
+    HealthCheck=200, DCF, DCR, DCT,
     // Other Commands/Response Messages
     Fault, DriveState, DriveMode, ThrottleMin, ThrottleMax,
 
