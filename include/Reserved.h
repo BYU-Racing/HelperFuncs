@@ -4,7 +4,7 @@
 #include <cstdint>
 
 /** CAN Message IDs that are reserved */
-enum ReservedIDs : uint32_t
+enum class ReservedIDs : uint32_t
 {
     // Custom Sensor Messages
 
@@ -28,12 +28,12 @@ enum ReservedIDs : uint32_t
     INVALID=0xFFFFFFFF
 };
 
-enum FaultSources : uint8_t
+enum class FaultSources : uint8_t
 {
     ThrottleMismatch, Throttle1Zero, Throttle2Zero, BrakeZero, StartFault,
 };
 
-enum DriveModes : uint8_t
+enum class DriveModes : uint8_t
 {
     Full,
     Endurance,
@@ -42,7 +42,7 @@ enum DriveModes : uint8_t
     Limp,
 };
 
-enum RVCSubIDs : uint8_t
+enum class RVCSubIDs : uint8_t
 {
     X_Accel,
     Y_Accel,
@@ -52,7 +52,7 @@ enum RVCSubIDs : uint8_t
     Yaw,
 };
 
-enum TireSubIDs : uint8_t
+enum class TireSubIDs : uint8_t
 {
     FrontLeft,
     FrontRight,
