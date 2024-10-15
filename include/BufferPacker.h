@@ -77,10 +77,10 @@ public:
 
     // Delete copy and move constructors/operators
 
-    BufferPacker(const BufferPacker&) = delete;
-    BufferPacker& operator=(const BufferPacker&) = delete;
-    BufferPacker(BufferPacker&&) = delete;
-    BufferPacker& operator=(BufferPacker&&) = delete;
+    // BufferPacker(const BufferPacker&) = delete;
+    // BufferPacker& operator=(const BufferPacker&) = delete;
+    // BufferPacker(BufferPacker&&) = delete;
+    // BufferPacker& operator=(BufferPacker&&) = delete;
 
     /** This conversion returns false if a BufferPacker has "failed", true otherwise. */
     explicit operator bool() const
