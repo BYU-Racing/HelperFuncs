@@ -4,60 +4,64 @@
 #include <cstdint>
 
 /** CAN Message IDs that are reserved */
-enum class ReservedIDs : uint32_t
+enum ReservedIDs : uint32_t
 {
     // Custom Sensor Messages
 
-    StartSwitch, Throttle1Position, Throttle2Position, BrakePressure, RVC, TireRPM, TireTemperature, BMSPercentage,
-    BMSTemperature, SteeringWheelAngle,
+    StartSwitchId, Throttle1PositionId, Throttle2PositionId, BrakePressureId, RVCId, TireRPMId, TireTemperatureId, BMSPercentageId,
+    BMSTemperatureId, SteeringWheelAngleId,
     // Motor Messages
 
-    Temperatures1=0x0A0, Temperatures2, Temperatures3, AnalogInputVoltages, DigitalInputStatus, MotorPositionInfo,
-    CurrentInfo, VoltageInfo, FluxInfo, InternalVoltages, InternalStates, FaultCodes, TorqueAndTimerInfo,
-    ModulationIndex, FirmwareInformation, DiagnosticData, HighSpeed, TorqueCapability,
+    Temperatures1Id=0x0A0, Temperatures2Id, Temperatures3Id, AnalogInputVoltagesId, DigitalInputStatusId, MotorPositionInfoId,
+    CurrentInfoId, VoltageInfoId, FluxInfoId, InternalVoltagesId, InternalStatesId, FaultCodesId, TorqueAndTimerInfoId,
+    ModulationIndexId, FirmwareInformationId, DiagnosticDataId, HighSpeedId, TorqueCapabilityId,
     // Motor Commands/Response Messages
 
-    ControlCommand=0x0C0, ParameterCommand, ParameterResponse,
+    ControlCommandId=0x0C0, ParameterCommandId, ParameterResponseId,
     // Health Check Commands/Response Messages
 
-    HealthCheck=200, DCF, DCR, DCT,
+    HealthCheckId=200, DCFId, DCRId, DCTId,
     // Other Commands/Response Messages
-    Fault, DriveState, DriveMode, ThrottleMin, ThrottleMax,
+    FaultId, DriveStateId, DriveModeId, ThrottleMinId, ThrottleMaxId,
 
     // ID for default initializations.
-    INVALID=0xFFFFFFFF
+    INVALIDId=0xFFFFFFFF,
 };
 
-enum class FaultSources : uint8_t
+enum FaultSourcesIDs : uint8_t
 {
-    ThrottleMismatch, Throttle1Zero, Throttle2Zero, BrakeZero, StartFault,
+    ThrottleMismatchId,
+    Throttle1ZeroId,
+    Throttle2ZeroId,
+    BrakeZeroId,
+    StartFaultId,
 };
 
-enum class DriveModes : uint8_t
+enum DriveModesIDs : uint8_t
 {
-    Full,
-    Endurance,
-    SkidPad,
-    Party,
-    Limp,
+    FullId,
+    EnduranceId,
+    SkidPadId,
+    PartyId,
+    LimpId,
 };
 
-enum class RVCSubIDs : uint8_t
+enum RVCSubIDs : uint8_t
 {
-    X_Accel,
-    Y_Accel,
-    Z_Accel,
-    Roll,
-    Pitch,
-    Yaw,
+    X_AccelId,
+    Y_AccelId,
+    Z_AccelId,
+    RollId,
+    PitchId,
+    YawId,
 };
 
-enum class TireSubIDs : uint8_t
+enum TireSubIDs : uint8_t
 {
-    FrontLeft,
-    FrontRight,
-    RearLeft,
-    RearRight,
+    FrontLeftId,
+    FrontRightId,
+    RearLeftId,
+    RearRightId,
 };
 
 #endif //RESERVED_H
