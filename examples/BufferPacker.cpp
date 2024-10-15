@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "BufferPacker.h"
+#include "Reserved.h"
 
 template <typename T1, typename T2>
 void printComparison(T1 PackValue, T2 UnpackValue)
